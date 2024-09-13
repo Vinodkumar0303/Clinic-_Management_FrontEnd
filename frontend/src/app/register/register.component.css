@@ -1,0 +1,21 @@
+/* Add this to your global styles.css or styles.scss */
+.mat-snack-bar-container {
+    top: 20px !important; /* Adjust the top position */
+    bottom: auto !important; /* Ensure it does not overlap with other content */
+    left: 50% !important; /* Center horizontally */
+    transform: translateX(-50%) !important; /* Adjust for centering */
+    text-align: center; /* Center text within the Snackbar */
+  }
+  
+  
+ 
+  .mat-snack-bar-container.snack-bar-success {
+    background-color: #4caf50 !important; /* Green color for success */
+    color: white !important;
+  }
+  
+  .mat-snack-bar-container.snack-bar-error {
+    background-color: #f44336 !important; /* Red color for error */
+    color: white !important;
+  }
+  
