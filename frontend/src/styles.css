@@ -1,1 +1,46 @@
 /* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* Add these styles to your src/styles.css */
+.mat-snack-bar-container.snack-bar-success {
+  background-color: #4caf50 !important; /* Green color for success */
+  color: white !important;
+}
+
+.mat-snack-bar-container.snack-bar-error {
+  background-color: #f44336 !important; /* Red color for error */
+  color: white !important;
+}
+
+/* Add this to your global styles.css or styles.scss */
+.mat-snack-bar-container.snack-bar-success {
+  background-color: #4caf50; /* Green color for success */
+  color: white;
+}
+
+.mat-snack-bar-container.snack-bar-error {
+  background-color: #f44336; /* Red color for error */
+  color: white;
+}
+
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+/* Global styles or styles.scss */
+.custom-snackbar-success {
+    background-color: #4caf50; /* Green */
+    color: white;
+  }
+  
+  .custom-snackbar-error {
+    background-color: #f44336; /* Red */
+    color: white;
+  }
+  
+  .custom-snackbar-info {
+    background-color: #333; /* Black */
+    color: white;
+  }
+  
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

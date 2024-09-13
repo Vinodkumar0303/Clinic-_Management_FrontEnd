@@ -1,0 +1,179 @@
+<!-- <p>register works!</p> -->
+ <!-- src/app/register/register.component.html -->
+<!-- <div class="register-container">
+    <h2>Register</h2>
+    <form (ngSubmit)="register()">
+      <label for="register-email">Email:</label>
+      <input type="email" id="register-email" [(ngModel)]="registerData.email" name="register-email" required>
+      
+      <label for="register-password">Password:</label>
+      <input type="password" id="register-password" [(ngModel)]="registerData.password" name="register-password" required>
+      
+      <button type="submit">Register</button>
+    </form>
+  </div>
+  <button (click)="goToLogin()">Login</button>
+
+<div *ngIf="message" class="message">
+ {{message}}
+</div> -->
+
+<div class="border flex justify-center h-screen">
+  <div class="border-2 border-black w-[45%] p-14 mt-20">
+    <form [formGroup]="registerForm" (ngSubmit)="register()" class="max-w-md mx-auto">
+      <!-- Email Field -->
+      <div class="relative z-0 w-full mb-5 group">
+        <input
+          type="email"
+          id="floating_email"
+          formControlName="email"
+          class="block py-2.5 px-0 w-full text-sm bg-transparent border-b-2 appearance-none
+                 peer focus:outline-none focus:ring-0 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0
+                 focus:border-blue-400 border-gray-300 dark:border-gray-600 dark:text-white
+                 dark:focus:border-blue-400
+                 {{ registerForm.controls['email'].invalid && registerForm.controls['email'].touched ? 'border-red-500' : 'border-gray-300' }}"
+          placeholder=" "
+        />
+        <label
+          for="floating_email"
+          class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300
+                 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0]
+                 peer-focus:text-blue-400 peer-focus:dark:text-blue-400
+                 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0
+                 peer-focus:scale-75 peer-focus:-translate-y-6"
+        >
+          Email address
+        </label>
+        <div *ngIf="registerForm.controls['email'].invalid && registerForm.controls['email'].touched" class="text-red-500 text-sm">
+          <div *ngIf="registerForm.controls['email'].errors?.['required']">Email is required.</div>
+          <div *ngIf="registerForm.controls['email'].errors?.['email']">Invalid email format.</div>
+        </div>
+      </div>
+
+      <!-- Password Field -->
+      <div class="relative z-0 w-full mb-5 group">
+        <input
+          type="password"
+          id="floating_password"
+          formControlName="password"
+          class="block py-2.5 px-0 w-full text-sm bg-transparent border-b-2 appearance-none
+                 peer focus:outline-none focus:ring-0 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0
+                 focus:border-blue-600 border-gray-300 dark:border-gray-600 dark:text-white
+                 dark:focus:border-blue-500
+                 {{ registerForm.controls['password'].invalid && registerForm.controls['password'].touched ? 'border-red-500' : 'border-gray-300' }}"
+          placeholder=" "
+        />
+        <label
+          for="floating_password"
+          class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300
+                 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0]
+                 peer-focus:text-blue-600 peer-focus:dark:text-blue-500
+                 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0
+                 peer-focus:scale-75 peer-focus:-translate-y-6"
+        >
+          Password
+        </label>
+        <div *ngIf="registerForm.controls['password'].invalid && registerForm.controls['password'].touched" class="text-red-500 text-sm">
+          <div *ngIf="registerForm.controls['password'].errors?.['required']">Password is required.</div>
+          <div *ngIf="registerForm.controls['password'].errors?.['minlength']">Password must be at least 6 characters.</div>
+        </div>
+      </div>
+
+      <!-- Confirm Password Field -->
+      <div class="relative z-0 w-full mb-5 group">
+        <input
+          type="password"
+          id="floating_repeat_password"
+          formControlName="confirmPassword"
+          class="block py-2.5 px-0 w-full text-sm bg-transparent border-b-2 appearance-none
+                 peer focus:outline-none focus:ring-0 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0
+                 focus:border-blue-600 border-gray-300 dark:border-gray-600 dark:text-white
+                 dark:focus:border-blue-500
+                 {{ registerForm.controls['confirmPassword'].invalid && registerForm.controls['confirmPassword'].touched ? 'border-red-500' : 'border-gray-300' }}"
+          placeholder=" "
+        />
+        <label
+          for="floating_repeat_password"
+          class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300
+                 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0]
+                 peer-focus:text-blue-600 peer-focus:dark:text-blue-500
+                 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0
+                 peer-focus:scale-75 peer-focus:-translate-y-6"
+        >
+          Confirm password
+        </label>
+        <div *ngIf="registerForm.errors?.['mismatch'] && registerForm.controls['confirmPassword'].touched" class="text-red-500 text-sm">
+          Passwords do not match.
+        </div>
+      </div>
+
+      <!-- Name Field -->
+      <div class="relative z-0 w-full mb-5 group">
+        <input
+          type="text"
+          id="floating_first_name"
+          formControlName="name"
+          class="block py-2.5 px-0 w-full text-sm bg-transparent border-b-2 appearance-none
+                 peer focus:outline-none focus:ring-0 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0
+                 focus:border-blue-600 border-gray-300 dark:border-gray-600 dark:text-white
+                 dark:focus:border-blue-500
+                 {{ registerForm.controls['name'].invalid && registerForm.controls['name'].touched ? 'border-red-500' : 'border-gray-300' }}"
+          placeholder=" "
+        />
+        <label
+          for="floating_first_name"
+          class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300
+                 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0]
+                 peer-focus:text-blue-600 peer-focus:dark:text-blue-500
+                 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0
+                 peer-focus:scale-75 peer-focus:-translate-y-6"
+        >
+          First name
+        </label>
+        <div *ngIf="registerForm.controls['name'].invalid && registerForm.controls['name'].touched" class="text-red-500 text-sm">
+          Name is required.
+        </div>
+      </div>
+
+      <!-- Phone Number Field -->
+      <div class="relative z-0 w-full mb-5 group">
+        <input
+          type="text"
+          id="floating_phone"
+          formControlName="phone"
+          class="block py-2.5 px-0 w-full text-sm bg-transparent border-b-2 appearance-none
+                 peer focus:outline-none focus:ring-0 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0
+                 focus:border-blue-600 border-gray-300 dark:border-gray-600 dark:text-white
+                 dark:focus:border-blue-500
+                 {{ registerForm.controls['phone'].invalid && registerForm.controls['phone'].touched ? 'border-red-500' : 'border-gray-300' }}"
+          placeholder=" "
+        />
+        <label
+          for="floating_phone"
+          class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300
+                 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0]
+                 peer-focus:text-blue-600 peer-focus:dark:text-blue-500
+                 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0
+                 peer-focus:scale-75 peer-focus:-translate-y-6"
+        >
+          Phone number (123-456-7890)
+        </label>
+        <div *ngIf="registerForm.controls['phone'].invalid && registerForm.controls['phone'].touched" class="text-red-500 text-sm">
+          <div *ngIf="registerForm.controls['phone'].errors?.['required']">Phone number is required.</div>
+          <div *ngIf="registerForm.controls['phone'].errors?.['pattern']">Invalid phone number format.</div>
+        </div>
+      </div>
+
+      <!-- Error Message -->
+      <div *ngIf="message" class="text-red-500 mb-4">{{ message }}</div>
+
+      <!-- Register Button -->
+      <button type="submit" class="w-full bg-blue-600 text-white font-medium py-2 rounded-md">Register</button>
+    </form>
+
+    <!-- Go to Login -->
+    <div class="mt-4 text-center">
+      <p>Already have an account? <a class="text-blue-600 cursor-pointer" (click)="goToLogin()">Login here</a></p>
+    </div>
+  </div>
+</div>

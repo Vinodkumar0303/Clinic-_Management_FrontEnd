@@ -1,38 +1,42 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { catchError } from 'rxjs/operators';
-import { of } from 'rxjs';
+import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   email: string = '';
   password: string = '';
-  private apiUrl = 'http://localhost:8000/api/login/';
+  message: string = '';
 
-  constructor(private http: HttpClient) { }
+  private apiUrl = 'http://127.0.0.1:5000/api/login'; 
+
+  constructor(private http: HttpClient, private router: Router, private snackBar: MatSnackBar) {}
+
+  ngOnInit(): void {
+    console.log('Login component initialized');
+  }
 
   onLogin() {
     this.http.post<any>(this.apiUrl, { email: this.email, password: this.password })
-      .pipe(
-        catchError(error => {
-          console.error('Login failed', error);
-          return of({ error: 'Login failed' });
-        })
-      )
       .subscribe(response => {
-        if (response.error) {
-          // Handle login failure
-          console.error('Login error:', response.error);
+        if (response.token) {
+          localStorage.setItem('token', response.token);
+          this.snackBar.open('Login successful', 'close', { duration: 3000 });
+          this.router.navigate(['/dashboard']);
         } else {
-          // Handle successful login
-          console.log('Login successful', response);
-          const userId = response._id;
-          console.log('User ID:', userId);
+          this.snackBar.open('Invalid Email or Password', 'close', { duration: 3000 });
         }
+      }, error => {
+        console.error('Login failed', error);
+        this.snackBar.open('Login failed. Please try again.', 'close', { duration: 3000 });
       });
+  }
+  goToRegistration(){
+    this.router.navigate(['/register']);
   }
 }
